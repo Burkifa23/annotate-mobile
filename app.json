@@ -3,6 +3,7 @@
     "name": "Annotate",
     "slug": "annotate-mobile",
     "version": "1.0.0",
+    "scheme": "annotate", 
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -42,15 +43,10 @@
       [
         "expo-share-intent",
         {
-          "ios": {
-            "activationRules": {
-              "NSExtensionActivationSupportsWebURLWithMaxCount": 1
-            }
+          "ios": { 
+            "activationRules": { "NSExtensionActivationSupportsWebURLWithMaxCount": 1 } 
           },
-          "android": [
-            "text/plain",
-            "text/*"
-          ]
+          "android": ["text/plain", "text/*"]
         }
       ]
     ]
