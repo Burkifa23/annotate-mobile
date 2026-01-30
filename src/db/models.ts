@@ -6,7 +6,7 @@ export class Task extends Model {
     static table = 'tasks';
     static associations = {
         notes: { type: 'has_many', foreignKey: 'task_id' },
-    } as const;
+    };
 
     @text('title') title!: string;
     @text('color') color!: string;
@@ -21,7 +21,8 @@ export class Task extends Model {
     // Helper: easy way to add a note to this task
     @writer async addNote(content: string, type: 'note' | 'clip' = 'note') {
         return await this.collections.get<Note>('notes').create(note => {
-            note.task.set(this);
+            // For immutableRelation, set task_id directly instead of using .set()
+            note.taskId = this.id;
             note.content = content;
             note.type = type;
             note.createdAt = new Date();
@@ -34,7 +35,7 @@ export class Note extends Model {
     static table = 'notes';
     static associations = {
         tasks: { type: 'belongs_to', key: 'task_id' },
-    } as const;
+    };
 
     @text('content') content!: string;
     @text('type') type!: string;
